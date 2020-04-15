@@ -5,10 +5,10 @@
     }
     else { $author = "Anonymous"; }
 ?>
-    <div class="section-task-create">
-        <form action="create_task.php" method="POST">
+    <form action="create_task.php" method="POST">
+        <div class="section-task-create">
             <input type="textarea" name="content" id="field_new_task" onsubmit="">
             <input type="hidden" name="author" value="<?php echo $author; ?>">
             <button name="send_task" type="submit">Создать</button>
-        </form>
-    </div>
+        </div>
+    </form>

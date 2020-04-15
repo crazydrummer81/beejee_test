@@ -25,7 +25,7 @@
 
 
 
-        <div>Привет, <?php echo $_SESSION['logged_user']->login; ?> </div>
+        <div>Привет, <strong><?php echo $_SESSION['logged_user']->login; ?></strong>! </div>
         <div><a href="logout.php" id="logout">Выйти</a></div>
         
         <h1>Задачник</h1>
@@ -38,7 +38,7 @@
 
     <?php else : ?>
         <!-- вывод для неавторизованного -->
-        <div>Не аторизован</div>
+        <!-- <div>Не аторизован</div> -->
         <a href="/login.php">Авторизоваться</a><br>
         <a href="/signup.php">Зарегистрироваться</a>
 
