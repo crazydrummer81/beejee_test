@@ -1,0 +1,16 @@
+.author-name,
+.author-email {
+    display: inline;
+    font-size: 0.8em;
+    color: #555555;
+}
+
+.task-list-item {
+    margin-top: 10px;
+}
+.task {
+    display: inline;
+}
+#button_task_edit {
+    display: inline;
+}
