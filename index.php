@@ -13,7 +13,7 @@
             <title>Document</title>
             <link rel="stylesheet" href="css/style.css">
             <link rel="stylesheet" href="css/fonts.css">
-            <!-- <script src="http://code.jquery.com/jquery-1.11.1.js"></!--> -->
+            <!-- <script src="http://code.jquery.com/jquery-1.11.1.js"></!--> 
 
         </head>
         <body>

@@ -12,9 +12,8 @@
     foreach( $tasks as &$task ) {
         $task->email = get_author_email($task->author);
     }
-    $sort_by = "";
+    $sort_by = "default";
     if( isset($_GET['sort_by'])) {
-        $sort_by = $_GET['sort_by'];
         $compare_func = "compare_".$sort_by;
         usort($tasks, $compare_func);
     }
@@ -25,7 +24,24 @@
         printf('<form name="form_tasks_edit" onsubmit="" action="save_tasks.php" method="POST">'); 
     }
 
+    $tasks_count = count($tasks); echo "<br>TASKS COUNT: ".$tasks_count;
+    $task_id = 0;
+    $page_id = 0;
+    $tasks_pages = array();
+    $tasks_per_pages = 3;
+    $task = $tasks[0];
+    
+    // Разбиваем все задачи на массивы по tasks_per_pages штук
+    $counter = 0; $tasks_page_id = 1;
     foreach( $tasks as $task ) {
+        $tasks_pages[$tasks_page_id][] = $task;
+        if( $counter++ >= $tasks_per_pages-1 ) { $counter = 0; $tasks_page_id++; }
+    }
+    
+    if( isset($_GET['page'])) { $current_page = $_GET['page'];}
+        else { $current_page = 1; }
+    
+    foreach( $tasks_pages[$current_page] as $task ) {
         echo "<div class='task-item'>";
         if( $logged_user != "") { //Checkbox
             if( $logged_user == "admin") {
@@ -39,7 +55,7 @@
         }
             printf( "<div id='task_content_%s' class='task'>%s</div>", $task->id, $task->content);
             printf( '<input type="text" style="display:none;" disabled="true" id="task_content_edited_%s" name="task_edited_%s" value="%s"></input>', $task->id, $task->id, $task->content);
-            if( $logged_user != "") {
+            if( $logged_user == "admin") {
                 printf( "<button type='button' id='button_task_edit_%s' onclick='editTask(%s)'>Изменить</button>",$task->id, $task->id );
                 printf( "<button style='display:none;' type='button' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'>Отменить</button>",$task->id, $task->id );
             }
@@ -58,7 +74,20 @@
         printf('<button id="button_save_form" style="display:none" type="submit">Сохранить</button>'); 
         printf('</form>'); 
     }
-
+    // ССЫЛКИ ПАГИНАЦИИ
+    $page_id = 1;
+    if( count($tasks_pages) > 1 ) {
+        echo '<div id="pagination">';
+        if( $current_page > 1) { printf('<a href="/?page=%d&sort_by=%s">&larr;</a>', $current_page-1, $sort_by); }
+        foreach ($tasks_pages as $page) {
+            if( $current_page == $page_id ) { $inner_tag = "strong"; } else { $inner_tag = "span"; }
+            $format = "\n<a href='/?page=%d&sort_by=%s'> <%s> %d </%s> </a>";
+            printf($format, $page_id, $sort_by, $inner_tag, $page_id, $inner_tag);
+            $page_id++;
+        }
+        if( $current_page < count($tasks_pages)) { printf('<a href="/?page=%d&sort_by=%s">&rarr;</a>', $current_page+1, $sort_by); }
+        echo '</div>';
+    }
 
 function get_author_email($author_name) {
     $user = R::findOne( 'users', ' login = ? ', array($author_name) );
@@ -72,6 +101,9 @@ function compare_email($a, $b) {
 }
 function compare_login($a, $b) {
     return $a->author > $b->author;
+}
+function compare_default($a, $b) {
+    return $a->id > $b->id;
 }
 
 ?>

@@ -14,3 +14,6 @@
 #button_task_edit {
     display: inline;
 }
+#pagination > a {
+    padding-left: 1em;
+}
