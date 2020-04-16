@@ -15,8 +15,8 @@
             } 
         else {
             R::store($user);
-            echo "<div class='signup_success'>Спасибо за регистрацию!</div>";
-            echo "<div class='signup_redirect'><a href='/login.php'>Перейти на страницу входа</a></div>";
+            echo "<div class='signup_success' style='text-align: center; margin-top:20px;'>Спасибо за регистрацию!</div>";
+            echo "<div class='signup_redirect' style='text-align: center; margin-top:20px;'><a href='/login.php'>Перейти на страницу входа</a></div>";
             exit;
         }
     }
