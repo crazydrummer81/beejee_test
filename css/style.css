@@ -3,30 +3,49 @@
     padding: 0;
     text-decoration: none;
 }
+html {
+    background-color: #bebebe;
+}
 
 body {
     font-family: Roboto, Arial, Helvetica, sans-serif;
     width: 350px;
     margin: auto;
+    padding: 10px 0px;
+    background-color: white;
 }
-
+a:visited {
+    color: inherit;
+}
 h1 {
-    margin: 1em 0em;
+    margin: 1rem 0em;
     text-align: center;
 }
 
 h2 {
-    margin: 0.5em 0em;
+    margin: 0.5em;
+}
+
+#authorisation {
+    display: flex;
+    justify-content: space-between;
+    margin: 0em 0.5em;
 }
 
 #sort {
-    margin-bottom: 0.5em;
+    margin: 0.5em 0.5em;
+    text-align: start;
 }
-#sort > span {
+#sort-header {
+    text-align: left;
+}
+#sort-content {
     margin-bottom: 0.5em;
     display: block;
+    text-align: left;
+    color: blue;
 }
-#sort > span > a:nth-child(1n+2)::before {
+#sort-content a:nth-child(1n+2)::before {
     content: "|";
     padding-left: 5px;
     padding-right: 5px;
@@ -37,21 +56,25 @@ h2 {
     font-size: 0.8em;
     color: #555555;
 }
-
-.task-list-item {
-    margin-top: 10px;
-}
-.task {
-    display: inline;
-}
-.task-item {
+.task-list-wrapper {
     width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.task-item {
     display: grid;
-    grid-template-areas: "checkbox content button"  
-                         "checkbox author button";
-    grid-template-columns: 1fr 6fr 2fr;
+    grid-template-areas:
+    "checkbox content button"  
+    "checkbox author button";
+    grid-template-columns: auto 1fr 5em;
     grid-template-rows: 1fr 1fr;
     padding: 8px;
+}
+.task {
+    justify-self: start;
+    grid-area: content;
+    /* padding-left: 0.5em; */
 }
 .task-item:nth-child(even) {
     background-color: #fbfbfb;
@@ -64,11 +87,25 @@ h2 {
 }
 .task-author {
     grid-area: author;
+    justify-self: start;
+    border-top: 1px solid #d0d0d0;
 }
 .checkbox {
     grid-area: checkbox;
     font-size: 2em;
     padding-right: 10px;
+    text-align: center;
+    align-self: center;
+    justify-self: start;
+}
+.checkbox > a:visited {
+    color: inherit;
+}
+.icon-checkbox-checked {
+    color: rgb(0, 100, 0);
+}
+.icon-checkbox-unchecked {
+    color: black;
 }
 #button_task_edit {
     display: inline;
@@ -76,15 +113,19 @@ h2 {
 #pagination {
     text-align: center;
 }
+#button_save_form {
+    margin: 0.5em 0.5em 0.5em auto;
+    height: 3em;
+    width: 6em;
+}
 #pagination > a {
     padding-left: 1em;
     text-align: center;
 }
 h3 {
-    margin: 15px 0px;
+    margin: 0.5em 0.5em 0em 0.5em;
 }
 .section-task-create {
-    width: 100%;
     display: grid;
     grid-template-areas: "content button";
     grid-template-columns: 7fr 2fr;
