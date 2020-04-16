@@ -9,13 +9,18 @@ html {
 
 body {
     font-family: Roboto, Arial, Helvetica, sans-serif;
-    width: 350px;
+    min-width: 350px;
+    width: 50%;
     margin: auto;
     padding: 10px 0px;
     background-color: white;
+
+}
+a {
+    color: blue;
 }
 a:visited {
-    color: inherit;
+    color: blue;
 }
 h1 {
     margin: 1rem 0em;
@@ -68,7 +73,7 @@ h2 {
     "checkbox content button"  
     "checkbox author button";
     grid-template-columns: auto 1fr 5em;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     padding: 8px;
 }
 .task {
@@ -135,7 +140,28 @@ h3 {
 
 #field_new_task {
     grid-area: content;
+    padding: 5px;
 }
 #send_task {
     grid-area: button;
+}
+#login-form {
+    padding: 0.5em;
+}
+#login-form > form > input {
+    /* height: 2em; */
+    width: 20em;
+    margin-bottom: 10px;
+    padding: 0.5em;
+}
+#login-form > form > div > button {
+    height: 2.5em;
+    min-width: 6em;
+    padding: 0em 1em;
+}
+.login-form-field {
+    height: 1.5em;
+}
+#signup_offer {
+    padding-left: 0.5em;
 }

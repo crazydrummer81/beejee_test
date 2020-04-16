@@ -1,5 +1,6 @@
 <?php
     require_once "db.php";
+
     $data = $_POST;
     
     if( isset($data['do_login']) ) {
@@ -27,19 +28,35 @@
             
     } 
     if( !isset($_SESSION['logged_user'])) : ?>
+    
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Document</title>
+            <link rel="stylesheet" href="css/style.css">
+        </head>
+        <body style="max-width:350px;">
 
         <h1>Войдите в свой личный кабинет</h1>
-        <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
-            <p><strong>Логин</strong>:</p>
-            <input type="text" name="login">
-            <p><strong>Пароль</strong>:</p>
-            <input type="password" name="password">
-            <p><button type="submit" name="do_login">Войти</button></p>
-        </form>
-        <div id="login">Ещё не зарегистрированы?</div>
-        <a href="signup.php" id="signup">Создайте аккаунт за 30 секунд!</a>
+        <div id="login-form">
+            <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
+                <div class="login-form-field"><strong>Логин</strong>:</div>
+                <input type="text" name="login">
+                <div class="login-form-field"><strong>Пароль</strong>:</div>
+                <input type="password" name="password">
+                <div><button type="submit" name="do_login">Войти</button></div>
+            </form>
+        </div>
+        <div id="signup_offer">
+            <div id="login">Ещё не зарегистрированы?</div>
+            <a href="signup.php" id="signup">Создайте аккаунт за 30 секунд!</a>
+        </div>
 
         <script src="js/login_form_validate.js"></script>
-
+                    
+        </body>
+        </html>
     <?php endif; ?>
 
