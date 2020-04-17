@@ -4,21 +4,23 @@
         $author = $_SESSION['logged_user']->login;
     }
     else { $author = "Anonymous"; }
+    isset($_POST) ? $params = "?" : $params = "";
 
-    $data = $_POST;
-    // echo($data['send_task']);
-    // echo($data['content']);
-    if( isset($data['send_task']) ) {
-        // echo $data['send_task'];
-        $data['content'] = htmlspecialchars($data['content']);
+    if( isset($_POST['page']           )) { $params .= "&page=".$_POST['page']; };
+    if( isset($_POST['sort_by']        )) { $params .= "&sort_by=".$_POST['sort_by']; };
+    if( isset($_POST['sort_direction'] )) { $params .= "&sort_direction=".$_POST['sort_direction']; };
+
+    if( isset($_POST['send_task']) ) {
+        // echo $_POST['send_task'];
+        $_POST['content'] = htmlspecialchars($_POST['content']);
         $task = R::dispense('tasks');
-        $task->content = $data['content'];
+        $task->content = $_POST['content'];
         $task->author = $author;
         $task->checked = false;
         $task->email = get_author_email($author);
         R::store($task);
     }
-    header("Location: /");
+    header("Location: /$params"); // ДОБАВИТЬ ССЫЛКИ НА СТРАНИЦУ И МЕТОД СОРТИРОВКИ
     function get_author_email($author_name) {
         $user = R::findOne( 'users', ' login = ? ', array($author_name) );
         if( $user->email != NULL ) { return $user->email; }

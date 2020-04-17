@@ -15,8 +15,9 @@
             } 
         else {
             R::store($user);
-            echo "<div class='signup_success' style='text-align: center; margin-top:20px;'>Спасибо за регистрацию!</div>";
-            echo "<div class='signup_redirect' style='text-align: center; margin-top:20px;'><a href='/login.php'>Перейти на страницу входа</a></div>";
+            header("Location: /login.php");
+            // echo "<div class='signup_success' style='text-align: center; margin-top:20px;'>Спасибо за регистрацию!</div>";
+            // echo "<div class='signup_redirect' style='text-align: center; margin-top:20px;'><a href='/login.php'>Перейти на страницу входа</a></div>";
             exit;
         }
     }
@@ -31,26 +32,27 @@
         <title>Document</title>
         <link rel="stylesheet" href="css/style.css">
     </head>
-    <body style="max-width:350px;">
-    <h1>Создайте аккаунт</h1>
-        <div id="login-form">
-            <form name=contact_form onsubmit="return signup_form_validate(this);" action="signup.php" method="POST">
-                <div class="login-form-field"><strong>Ваш логин</strong>:</div>
-                <input type="text" name="login">
-                <div class="login-form-field"><strong>e-mail</strong>:</div>
-                <input type="email" name="email">
-                <div class="login-form-field"><strong>Пароль</strong>:</div>
-                <input type="password" name="password">
-                <div class="login-form-field"><strong>Повторите пароль</strong>:</div>
-                <input type="password" name="password_2">
-                <div><button type="submit" name="do_signup">Зарегистрироваться</button></div>
-            </form>
+    <body>
+    <div id="main-wrapper-signup">
+        <h1>Создайте аккаунт</h1>
+            <div id="login-form">
+                <form name=contact_form onsubmit="return signup_form_validate(this);" action="signup.php" method="POST">
+                    <div class="login-form-field" placeholder="Ваш логин"><strong>Ваш логин</strong>:
+                    <input type="text" name="login"></div>
+                    <div class="login-form-field"><strong>e-mail</strong>:
+                    <input type="email" name="email"></div>
+                    <div class="login-form-field"><strong>Пароль</strong>:
+                    <input type="password" name="password"></div>
+                    <div class="login-form-field"><strong>Повторите пароль</strong>:
+                    <input type="password" name="password_2"></div>
+                    <div class="login-form-button"><button type="submit" name="do_signup">Зарегистрироваться</button></div>
+                </form>
+            </div>
+        <div id="signup_offer">
+            <div id="login">Уже зарегистрированы?</div>
+            <a href="login.php" id="login">Войдите в свой аккаунт</a>
         </div>
-    <div id="signup_offer">
-        <div id="login">Уже зарегистрированы?</div>
-        <a href="login.php" id="login">Войдите в свой аккаунт</a>
     </div>
-
     <script src="js/signup_form_validate.js"></script>
 
     </body>

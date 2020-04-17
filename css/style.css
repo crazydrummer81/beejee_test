@@ -4,17 +4,25 @@
     text-decoration: none;
 }
 html {
-    background-color: #bebebe;
+    background-color: #dadada;
 }
-
-body {
-    font-family: Roboto, Arial, Helvetica, sans-serif;
-    min-width: 350px;
-    width: 50%;
-    margin: auto;
-    padding: 10px 0px;
+#main-wrapper-signup, #main-wrapper-login, #main-wrapper-home {
+    width: 350px;
+    padding: 15px 0px;
     background-color: white;
-
+    border: 0px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px #999999;
+}
+#main-wrapper-home {
+    width: 600px;
+}
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
 }
 a {
     color: blue;
@@ -38,7 +46,7 @@ h2 {
 }
 
 #sort {
-    margin: 0.5em 0.5em;
+    margin: auto 20px;
     text-align: start;
 }
 #sort-header {
@@ -89,6 +97,7 @@ h2 {
 }
 .button-task-edit {
     grid-area: button;
+    height: 3em;
 }
 .task-author {
     grid-area: author;
@@ -134,8 +143,9 @@ h3 {
     display: grid;
     grid-template-areas: "content button";
     grid-template-columns: 7fr 2fr;
-    padding: 8px;
+    padding: 8px 20px;
     height: 2em;
+    grid-gap: 0.5em;
 }
 
 #field_new_task {
@@ -146,7 +156,7 @@ h3 {
     grid-area: button;
 }
 #login-form {
-    padding: 0.5em;
+    padding: 10px;
 }
 #login-form > form > input {
     /* height: 2em; */
@@ -160,8 +170,31 @@ h3 {
     padding: 0em 1em;
 }
 .login-form-field {
-    height: 1.5em;
+    /* height: 1.5em; */
+    display: block;
+    width: 100%;
+}
+.login-form-field > input {
+    display: block;
+    padding: 5px;
+    width: 100%;
+    height: 2.5em;
+    margin: 0.5em auto;
+    box-sizing: border-box;
+    border: 1px solid #999999;
+    border-radius: 5px;
+    /* box-shadow: 1px 1px 2px #999999; */
+}
+.login-form-button {
+    text-align: end;
+    padding-top: 0.5em;
+}
+.login-form-button > button {
+    border: 1px solid #bbbbbb;
+    border-radius: 5px;
+    box-shadow: 1px 1px 2px #999999;
 }
 #signup_offer {
-    padding-left: 0.5em;
+    padding: 0em 0.5em;
+    text-align: center;
 }

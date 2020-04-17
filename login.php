@@ -37,25 +37,26 @@
             <title>Document</title>
             <link rel="stylesheet" href="css/style.css">
         </head>
-        <body style="max-width:350px;">
+        <body>
+        <div id="main-wrapper-login">
 
-        <h1>Войдите в свой личный кабинет</h1>
-        <div id="login-form">
-            <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
-                <div class="login-form-field"><strong>Логин</strong>:</div>
-                <input type="text" name="login">
-                <div class="login-form-field"><strong>Пароль</strong>:</div>
-                <input type="password" name="password">
-                <div><button type="submit" name="do_login">Войти</button></div>
-            </form>
-        </div>
-        <div id="signup_offer">
-            <div id="login">Ещё не зарегистрированы?</div>
-            <a href="signup.php" id="signup">Создайте аккаунт за 30 секунд!</a>
-        </div>
+            <h1>Войдите в свой личный кабинет</h1>
+            <div id="login-form">
+                <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
+                    <div class="login-form-field"><strong>Логин</strong>:
+                    <input type="text" name="login"></div>
+                    <div class="login-form-field"><strong>Пароль</strong>:
+                    <input type="password" name="password"></div>
+                    <div class="login-form-button"><button type="submit" name="do_login">Войти</button></div>
+                </form>
+            </div>
+            <div id="signup_offer">
+                <div id="login">Ещё не зарегистрированы?</div>
+                <a href="signup.php" id="signup">Создайте аккаунт за 30 секунд!</a>
+            </div>
 
-        <script src="js/login_form_validate.js"></script>
-                    
+            <script src="js/login_form_validate.js"></script>
+        </div>       
         </body>
         </html>
     <?php endif; ?>

@@ -1,66 +1,70 @@
 <?php
     require_once "db.php";
- 
+    
+    isset( $_SESSION['logged_user'] ) ? $logged_user = $_SESSION['logged_user']->login : $logged_user = "";
+
     $tasks = R::findAll( 'tasks' );
     foreach( $tasks as &$task ) {
         $task->email = get_author_email($task->author);
     }
+    unset($task);
     
-    $sort_types = array(
-        'login_inc'   => ['direction' => 'inc', 'key' => 'login',   'description' => 'автор'],
-        'email_inc'   => ['direction' => 'inc', 'key' => 'email',   'description' => 'e-mail'],
-        'content_inc' => ['direction' => 'inc', 'key' => 'content', 'description' => 'задача'],
-        'default'     => ['direction' => 'inc', 'key' => 'default', 'description' => 'без сортировки']
-    );
-    if( isset($_GET['sort_by'])) {
-        $sort_by        = $_GET['sort_by'];
-        $sort_direction = $_GET['sort_direction'];
-        if( isset($_GET['change_sort_by'])        ) {
+    //----------------ОПРЕДЕЛЕНИЕ ТИПА И НАПРАВЛЕНИЯ СОРТИРОВКИ------------------
+    if( isset($_GET['sort_by']) && ($_GET['sort_by'] != "") ) {
+        $current_sort_by        = $_GET['sort_by'];
+        if( isset($_GET['sort_direction']) && $_GET['sort_direction'] != "" ) { $sort_direction = $_GET['sort_direction']; 
+            } else { $sort_direction = "inc"; }
+        if( isset($_GET['change_sort_direction']) && $_GET['change_sort_direction'] != ""  ) { $change_sort_direction = $_GET['change_sort_direction'];
+            } else { $change_sort_direction = $sort_direction; }
+        if( isset($_GET['change_sort_by']) && $_GET['change_sort_by'] != "" ) {
             $change_sort_by = $_GET['change_sort_by'];
-            if( $sort_by == $change_sort_by ) {
+            if( $current_sort_by == $change_sort_by ) {
                 $sort_direction = ($sort_direction == 'dec') ? 'inc' : 'dec';
             }
-        } else { $change_sort_by = $sort_by; }
-        if( isset($_GET['change_sort_direction']) ) { $change_sort_direction = $_GET['change_sort_direction'];
-            } else { $change_sort_direction = $sort_direction; }
+        } else { $change_sort_by = $current_sort_by; }
+        $compare_func = "compare_".$change_sort_by."_".$sort_direction; // ФОРМИРУЕМ СТРОКУ ДЛЯ ФУНКЦИИ USORT()
         
-        
-        $compare_func = "compare_".$change_sort_by."_".$sort_direction;
+        //----------------СОРТИРОВКА МАССИВА ЗАДАЧ------------------
         usort($tasks, $compare_func);
-        $sort_by = $change_sort_by;
-    } else {
-        $sort_by = "default";
-        $sort_direction = "inc";
+        $current_sort_by = $change_sort_by;
+        
+        } else { // ЕСЛИ НЕ ЗАДАНА СОРТИРОВКА УСТАНАВЛИВАЕМ ТИП И НАПРАВЛЕНИЕ ПО УМОЛЧАНИЮ
+            $current_sort_by = "default";
+            $sort_direction = "inc";
+            $change_sort_by = "default";
     }
-    isset( $_SESSION['logged_user'] ) ? $logged_user = $_SESSION['logged_user']->login : $logged_user = "";
+    $current_sort_by = $change_sort_by; // ПОСЛЕ СОРТИРОВКИ УСТАНАВИЛИВАЕМ ПАРАМЕТРЫ ДЛЯ СЛЕДУЮЩЕГО ЗАПРОСА
 ?>
 
 <div id="sort"> 
     <div id="sort-header">Сортировать по</div>
     <div id="sort-content">
-
-        <?php 
-            // echo "<pre>"; print_r($sort_types); echo "</pre>";
+        
+        <?php //--------------------ВЫВОД ССЫЛОК СОРТИРОВКИ-------------------- 
+            $sort_types = array(
+                'login'   => ['key' => 'login',   'description' => 'автор'],
+                'email'   => ['key' => 'email',   'description' => 'e-mail'],
+                'content' => ['key' => 'content', 'description' => 'задача'],
+                'default' => ['key' => 'default', 'description' => 'без сортировки']
+            );
             foreach( $sort_types as $type ) {
-                if( $sort_by == $type['key'] ) {
+                if( $current_sort_by == $type['key'] ) {
                     $tag = 'strong';
-                    $dir = ( $sort_direction == 'inc' ) ? "&darr;" : "&uarr;"; 
+                    $dir = ( $sort_direction == 'inc' ) ? "&uarr;" : "&darr;"; 
                 } 
                 else { $tag = 'regular'; $dir=""; }
                 
-                printf( '<a href="/?sort_by=%s&sort_direction=%s&change_sort_by=%s&change_sort_direction=%s"><%s>%s %s</%s></a>', 
-                    $sort_by, $sort_direction, $type['key'], $type['direction'], $tag, $type['description'], $dir, $tag );
+                printf( '<a href="/?sort_by=%s&sort_direction=%s&change_sort_by=%s"><%s>%s %s</%s></a>', 
+                    $current_sort_by, $sort_direction, $type['key'], $tag, $type['description'], $dir, $tag );
             }
         ?>
 
     </div>
 </div>
 
+<!--------------------ВЫВОД СПИСКА ЗАДАЧ---------------------->
+<div class='task-list-wrapper'>
 <?php
-
-
-    //------------------TASK LIST----------------------
-    echo "<div class='task-list-wrapper'>";
         if( $logged_user == "admin") {
             printf('<form name="form_tasks_edit" onsubmit="" action="save_tasks.php" method="POST">'); 
         }
@@ -75,7 +79,6 @@
         // Разбиваем все задачи на массивы по tasks_per_pages штук
         
         $counter = 1; $tasks_page_id = 1;
-        unset($task);
         foreach( $tasks as $task ) {
             $tasks_pages[$tasks_page_id][] = $task; 
             if( $counter++ >= $tasks_per_pages ) { $counter = 1; $tasks_page_id++; }
@@ -90,7 +93,7 @@
                 echo "<div class='checkbox'>";
                 if( $logged_user != "") { //Checkbox
                     if( $logged_user == "admin") {
-                        printf("<a class='' href='task_check.php/?task_id=%s&sort_by=%s&sort_direction=%s&page=%s'>", $task->id, $sort_by, $sort_direction, $current_page);
+                        printf("<a class='' href='task_check.php/?task_id=%s&sort_by=%s&sort_direction=%s&page=%s'>", $task->id, $current_sort_by, $sort_direction, $current_page);
                     } //else { }
 
                     if( $task->checked ) {
@@ -125,22 +128,24 @@
             printf('<button id="button_save_form" style="display:none" type="submit">Сохранить</button>'); 
             printf('</form>'); 
         }
-    echo "</div>"; // task-lis-wrapper
+?>
+</div> <!-- task-list-wrapper -->
+<?php
     // ------------------ССЫЛКИ ПАГИНАЦИИ-----------------
     $page_id = 1;
     if( count($tasks_pages) > 1 ) {
         echo '<div id="pagination">';
         if( $current_page > 1) { 
-            printf('<a href="/?page=%d&sort_by=%s&sort_direction=%s">&larr;</a>', $current_page-1, $sort_by, $sort_direction); }
+            printf('<a href="/?page=%d&sort_by=%s&sort_direction=%s">&larr;</a>', $current_page-1, $current_sort_by, $sort_direction); }
 
         foreach ($tasks_pages as $page) {
             if( $current_page == $page_id ) { $inner_tag = "strong"; } else { $inner_tag = "span"; }
             $format = "\n<a href='/?page=%d&sort_by=%s&sort_direction=%s'> <%s> %d </%s> </a>";
-            printf($format, $page_id, $sort_by, $sort_direction, $inner_tag, $page_id, $inner_tag);
+            printf($format, $page_id, $current_sort_by, $sort_direction, $inner_tag, $page_id, $inner_tag);
             $page_id++;
         }
         if( $current_page < count($tasks_pages)) { 
-            printf('<a href="/?page=%d&sort_by=%s&sort_direction=%s">&rarr;</a>', $current_page+1, $sort_by, $sort_direction); 
+            printf('<a href="/?page=%d&sort_by=%s&sort_direction=%s">&rarr;</a>', $current_page+1, $current_sort_by, $sort_direction); 
         }
         echo '</div>';
     }
@@ -150,6 +155,7 @@ function get_author_email($author_name) {
     if( $user->email != NULL ) { return $user->email; }
         else { return "-"; }
 }
+
 function compare_content_inc($a, $b) {
     return $a->content > $b->content;
 }
@@ -182,9 +188,6 @@ function compare_default_dec($a, $b) {
 
         elem_id = 'task_content_' + task_id; //console.log('id: '+elem_id);
         elem = document.getElementById(elem_id);
-        // console.log(elem);
-        // target_html = '<input type="text" id="task_content_edited_' + task_id + '" name="task_edited_' + task_id + '" value="'+ elem.innerText +'"></input>';
-        // elem.innerHTML = target_html;
         elem.style = "display:none;";
         console.log(elem);
         
@@ -196,12 +199,10 @@ function compare_default_dec($a, $b) {
         
         elem_id = 'button_task_edit_' + task_id; console.log('id: '+elem_id);
         elem = document.getElementById(elem_id);
-        // elem.innerText = "Отмена";
         elem.style="display:none;";
 
         elem_id = 'button_task_edit_cancel_' + task_id; console.log('id: '+elem_id);
         elem = document.getElementById(elem_id);
-        // elem.innerText = "Отмена";
         elem.style="display:block;";
 
         elem_id = 'button_save_form';
@@ -212,12 +213,12 @@ function compare_default_dec($a, $b) {
     function cancelEditTask(task_id) {
         console.log("ОТМЕНА "+task_id);
 
-        elem_id = 'task_content_edited_' + task_id; //console.log('id: '+elem_id);
+        elem_id = 'task_content_edited_' + task_id;
         elem = document.getElementById(elem_id);
         elem.style = "display:none;";
         elem.disabled = true;
 
-        elem_id = 'task_content_' + task_id; //console.log('id: '+elem_id);
+        elem_id = 'task_content_' + task_id;
         elem = document.getElementById(elem_id);
         elem.style = "dispay:inline;";
         elem.disabled = true;
