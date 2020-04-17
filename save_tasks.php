@@ -17,8 +17,7 @@
                 $task->content = $content;
                 R::store($task);
             }
-            header( "refresh:3;url=/" );
-            echo('Все изменения сохранены. Вы будете перенаправлены на главную страницу...');
+            header( "Location: /" );
         }
 
     function extract_ids(&$keys, $str_to_delete) {

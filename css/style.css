@@ -46,23 +46,48 @@ h2 {
 }
 
 #sort {
+    display: grid;
+    grid-template-areas:
+    "header button"
+    "content button";
+    grid-template-columns: 7fr 1fr;
+    grid-template-rows: 1fr 1fr;
     margin: auto 20px;
     text-align: start;
 }
 #sort-header {
     text-align: left;
+    grid-area: header;
 }
 #sort-content {
     margin-bottom: 0.5em;
     display: block;
     text-align: left;
     color: blue;
+    grid-area: content;
 }
 #sort-content a:nth-child(1n+2)::before {
     content: "|";
     padding-left: 5px;
     padding-right: 5px;
 }
+#button-save {
+    grid-area: button;
+    font-size: 2em;
+    justify-self: end;
+    align-self: center;
+    color: red;
+    /* color: rgb(0, 100, 0); */
+}
+#button-save > a:visited {
+    /* color: rgb(0, 100, 0); */
+    color: red;
+}
+/* #button_save_form {
+    margin: 0.5em 0.5em 0.5em auto;
+    height: 3em;
+    width: 6em;
+} */
 .author-name,
 .author-email {
     display: inline;
@@ -80,14 +105,27 @@ h2 {
     grid-template-areas:
     "checkbox content button"  
     "checkbox author button";
-    grid-template-columns: auto 1fr 5em;
-    grid-template-rows: 1fr;
+    grid-template-columns: auto 1fr 6em;
+    /* grid-template-rows: 1fr; */
     padding: 8px;
 }
 .task {
     justify-self: start;
     grid-area: content;
+    /* padding: 8px 5px; */
+    display: flex;
+    width: 100%;
     /* padding-left: 0.5em; */
+}
+.task > a, .task > a:visited {
+    font-size: 1.5em;
+    color: red;
+    margin-left: 5px;
+}
+
+.task > input {
+    width: 100%;
+    padding: 5px;
 }
 .task-item:nth-child(even) {
     background-color: #fbfbfb;
@@ -95,9 +133,26 @@ h2 {
 .task-item:nth-child(odd) {
     background-color: #f4f4f4;
 }
+.task-item > input {
+    box-sizing: border-box;
+    padding: 5px;
+}
 .button-task-edit {
+    /* display: inline; */
+    /* height: 3em; */
+    font-size: 1.4em;
+    align-self: center;
+    justify-self: end;
     grid-area: button;
-    height: 3em;
+    color: black;
+}
+.button-task-edit > a, .button-task-edit > a:visited { 
+    padding-left: 5px;
+    color: black;
+}
+.button-task-delete, a.button-task-delete:visited {
+    color: black;
+    font-size: 1.3em;
 }
 .task-author {
     grid-area: author;
@@ -121,17 +176,12 @@ h2 {
 .icon-checkbox-unchecked {
     color: black;
 }
-#button_task_edit {
-    display: inline;
-}
+
+
 #pagination {
     text-align: center;
 }
-#button_save_form {
-    margin: 0.5em 0.5em 0.5em auto;
-    height: 3em;
-    width: 6em;
-}
+
 #pagination > a {
     padding-left: 1em;
     text-align: center;

@@ -60,13 +60,23 @@
         ?>
 
     </div>
+    <div id='button-save'>
+        <?php if( $logged_user == "admin"): ?>
+            <a href="#" 
+                id="button_save_form" 
+                style="display:none" 
+                onclick='document.getElementById("form_tasks_edit").submit()'>
+                    <i class="icon-save-disk"></i>
+            </a>
+        <?php endif; ?>
+    </div>
 </div>
 
 <!--------------------ВЫВОД СПИСКА ЗАДАЧ---------------------->
 <div class='task-list-wrapper'>
 <?php
         if( $logged_user == "admin") {
-            printf('<form name="form_tasks_edit" onsubmit="" action="save_tasks.php" method="POST">'); 
+            printf('<form name="form_tasks_edit" id="form_tasks_edit" onsubmit="" action="save_tasks.php" method="POST">'); 
         }
 
         $tasks_per_pages = 3;
@@ -105,14 +115,20 @@
                 } 
                 echo "</div>";
                 
-                    printf( "<div id='task_content_%s' class='task'>%s</div>", $task->id, $task->content);
+                    echo "<div class='task'>";
+                    printf( "<div id='task_content_%s' >%s</div>", $task->id, $task->content);
                     printf( '<input type="text" style="display:none;" disabled="true" id="task_content_edited_%s" name="task_edited_%s" value="%s"></input>', $task->id, $task->id, $task->content);
+                    printf( "<a style='display:none;' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'><i class='icon-cancel-circle'></i></a>",$task->id, $task->id );
+                    echo "</div>";
+                    echo "<div class='button-task-edit'>";
                     if( $logged_user == "admin") {
-                        printf( "<button type='button' class='button-task-edit' id='button_task_edit_%s' onclick='editTask(%s)'>Изменить</button>",$task->id, $task->id );
-                        printf( "<button style='display:none;' type='button' class='button-task-edit' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'>Отменить</button>",$task->id, $task->id );
-                    } else {
-                        echo "<div class='button-task-edit'></div>";
-                    }
+                        printf( "<a href='#' id='button_task_edit_%s' onclick='editTask(%s)'><i style='font-size: 1.3em;' class='icon-compose'></i></a>",$task->id, $task->id );
+                        // printf( "<a style='display:none;' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'><i class='icon-cancel-circle'></i></a>",$task->id, $task->id );
+                        printf( "<a href='#' class='button-task-delete' id='button_task_delete_%s' onclick='deleteTask(%s)'><i class='icon-bin'></i></a>",$task->id, $task->id );
+                    } //else {
+                        //echo "<div class='button-task-edit'></div>";
+                    //}
+                    echo "</div>";
 
                     echo('<div class="task-author">');
                     printf( "<div class='author-name'>Автор: <strong>%s</strong></div>", $task->author);
@@ -124,10 +140,10 @@
             
             }
         }
-        if( $logged_user == "admin") {
-            printf('<button id="button_save_form" style="display:none" type="submit">Сохранить</button>'); 
+        // if( $logged_user == "admin") {
+        //     printf('<button id="button_save_form" style="display:none" type="submit">Сохранить</button>'); 
             printf('</form>'); 
-        }
+        //}
 ?>
 </div> <!-- task-list-wrapper -->
 <?php
@@ -203,11 +219,11 @@ function compare_default_dec($a, $b) {
 
         elem_id = 'button_task_edit_cancel_' + task_id; console.log('id: '+elem_id);
         elem = document.getElementById(elem_id);
-        elem.style="display:block;";
+        elem.style="display:inline;";
 
         elem_id = 'button_save_form';
         elem = document.getElementById(elem_id);
-        elem.style = 'display:block;';
+        elem.style = 'display:inline;';
     }
 
     function cancelEditTask(task_id) {
