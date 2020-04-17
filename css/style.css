@@ -11,6 +11,7 @@ html {
     padding: 15px 0px;
     background-color: white;
     border: 0px;
+    border-top: 50px solid #27ae60;
     border-radius: 10px;
     box-shadow: 5px 5px 10px #999999;
 }
@@ -31,18 +32,58 @@ a:visited {
     color: blue;
 }
 h1 {
-    margin: 1rem 0em;
+    margin: 0px;
     text-align: center;
+    font-size: 1.4rem;
+    color: white;
+
+}
+
+#login_heading, #signup_heading {
+    position:relative;
+    top:-25px;
+    margin-top:-30px;
 }
 
 h2 {
     margin: 0.5em;
 }
 
+button {
+    border: 0px; 
+    border-radius: 5px;
+    background-color: #27ae60;
+    color: white;
+    font-weight: 700;
+    box-shadow: 1px 1px 2px #999999;
+    
+}
+button:hover {
+    background-color: #3bbb70;
+}
+input {
+    border: 1px solid #999999;
+    border-radius: 5px;
+}
+
 #authorisation {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-between;
-    margin: 0em 0.5em;
+    position: relative;
+    top: -55px;
+    color: white;
+    margin: 0em 0.7em -25px 0.7em;
+    z-index: 500;
+    align-items: center;
+}
+
+#logout, 
+#logout > a:visited, 
+#authorisation > a, 
+#authorisation > a:visited {
+    color: white;
+    font-weight: 700;
 }
 
 #sort {
@@ -83,11 +124,10 @@ h2 {
     /* color: rgb(0, 100, 0); */
     color: red;
 }
-/* #button_save_form {
-    margin: 0.5em 0.5em 0.5em auto;
-    height: 3em;
-    width: 6em;
-} */
+#button-save > a:hover {
+    color: #27ae60;
+}
+
 .author-name,
 .author-email {
     display: inline;
@@ -150,9 +190,15 @@ h2 {
     padding-left: 5px;
     color: black;
 }
+.button-task-edit > a:hover { 
+    color: #27ae60;
+}
 .button-task-delete, a.button-task-delete:visited {
     color: black;
     font-size: 1.3em;
+}
+a.button-task-delete:hover {
+    color: red;
 }
 .task-author {
     grid-area: author;
@@ -169,6 +215,9 @@ h2 {
 }
 .checkbox > a:visited {
     color: inherit;
+}
+.checkbox > a:hover {
+    color: #27ae60;
 }
 .icon-checkbox-checked {
     color: rgb(0, 100, 0);
@@ -232,18 +281,18 @@ h3 {
     margin: 0.5em auto;
     box-sizing: border-box;
     border: 1px solid #999999;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     /* box-shadow: 1px 1px 2px #999999; */
 }
 .login-form-button {
     text-align: end;
     padding-top: 0.5em;
 }
-.login-form-button > button {
+/* .login-form-button > button {
     border: 1px solid #bbbbbb;
     border-radius: 5px;
     box-shadow: 1px 1px 2px #999999;
-}
+} */
 #signup_offer {
     padding: 0em 0.5em;
     text-align: center;

@@ -34,7 +34,7 @@
     </head>
     <body>
     <div id="main-wrapper-signup">
-        <h1>Создайте аккаунт</h1>
+        <h1 id="signup_heading">Создайте аккаунт</h1>
             <div id="login-form">
                 <form name=contact_form onsubmit="return signup_form_validate(this);" action="signup.php" method="POST">
                     <div class="login-form-field" placeholder="Ваш логин"><strong>Ваш логин</strong>:
@@ -45,7 +45,7 @@
                     <input type="password" name="password"></div>
                     <div class="login-form-field"><strong>Повторите пароль</strong>:
                     <input type="password" name="password_2"></div>
-                    <div class="login-form-button"><button type="submit" name="do_signup">Зарегистрироваться</button></div>
+                    <div class="login-form-button"><button class="button" type="submit" name="do_signup">Зарегистрироваться</button></div>
                 </form>
             </div>
         <div id="signup_offer">

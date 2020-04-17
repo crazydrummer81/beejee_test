@@ -11,6 +11,6 @@
             <input type="hidden" name="page" value="<?php echo $current_page; ?>">
             <input type="hidden" name="sort_by" value="<?php echo $current_sort_by; ?>">
             <input type="hidden" name="sort_direction" value="<?php echo $sort_direction; ?>">
-            <button name="send_task" type="submit">Создать</button>
+            <button class="button" name="send_task" type="submit">Создать</button>
         </div>
     </form>

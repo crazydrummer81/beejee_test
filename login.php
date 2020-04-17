@@ -40,14 +40,14 @@
         <body>
         <div id="main-wrapper-login">
 
-            <h1>Войдите в свой личный кабинет</h1>
+            <h1 id="login_heading">Вход в личный кабинет</h1>
             <div id="login-form">
                 <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
                     <div class="login-form-field"><strong>Логин</strong>:
                     <input type="text" name="login"></div>
                     <div class="login-form-field"><strong>Пароль</strong>:
                     <input type="password" name="password"></div>
-                    <div class="login-form-button"><button type="submit" name="do_login">Войти</button></div>
+                    <div class="login-form-button"><button class="button" type="submit" name="do_login">Войти</button></div>
                 </form>
             </div>
             <div id="signup_offer">
