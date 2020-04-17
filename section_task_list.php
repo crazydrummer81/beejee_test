@@ -94,8 +94,13 @@
             if( $counter++ >= $tasks_per_pages ) { $counter = 1; $tasks_page_id++; }
         }
         
-        if( isset($_GET['page'])) { $current_page = $_GET['page'];}
-            else { $current_page = 1; }
+        if( isset($_GET['page']) && ($_GET['page'] != 0 ) ) {
+            $current_page = $_GET['page']; echo "SUKA ".$current_page > count($tasks_pages);
+            if ( $current_page > count($tasks_pages) ) {
+                $current_page = count($tasks_pages);
+            }
+        }
+            else { $current_page = 1; } 
         
         if( count($tasks) ) { 
             foreach( $tasks_pages[$current_page] as $task ) {
@@ -124,7 +129,8 @@
                     if( $logged_user == "admin") {
                         printf( "<a href='#' id='button_task_edit_%s' onclick='editTask(%s)'><i style='font-size: 1.3em;' class='icon-compose'></i></a>",$task->id, $task->id );
                         // printf( "<a style='display:none;' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'><i class='icon-cancel-circle'></i></a>",$task->id, $task->id );
-                        printf( "<a href='#' class='button-task-delete' id='button_task_delete_%s' onclick='deleteTask(%s)'><i class='icon-bin'></i></a>",$task->id, $task->id );
+                        printf( "<a href='/delete_task.php/?task_id=%s&page=%d&sort_by=%s&sort_direction=%s' class='button-task-delete' id='button_task_delete_%s'><i class='icon-bin'></i></a>", $task->id, $current_page, $current_sort_by, $sort_direction,  $task->id  );
+
                     } //else {
                         //echo "<div class='button-task-edit'></div>";
                     //}
