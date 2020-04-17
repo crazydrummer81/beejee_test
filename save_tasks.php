@@ -1,31 +1,32 @@
 <?php
     require_once "db.php";
-    if( !isset($_SESSION['logged_user']) && !( $_SESSION['logged_user']->login == 'admin' ) ) {
+    if( !isset($_SESSION['logged_user']) && !($_SESSION['logged_user']->login == 'admin') && !isset($_POST) ) {
         header("Location: /");
         die;
     } else;
 
-        $data = $_POST;
-        $keys = array_keys($data);
         
-        if( isset($data) ) {
-            extract_ids($keys, 'task_edited_');
-            $keys_elem_id = 0;
-            foreach( $data as $content ) {
-                $key = $keys[$keys_elem_id++];
-                $task = R::findOne('tasks', ' id = ? ', array($key));
-                $task->content = $content;
-                R::store($task);
-            }
-            header( "Location: /" );
-        }
+    $params = "?";
 
-    function extract_ids(&$keys, $str_to_delete) {
-        $i = 0;
-        foreach( $keys as $key ) {
-            $keys[$i] = str_replace( $str_to_delete, '', $keys[$i] );
-            $i++;
-        }
+    if( isset($_POST['page']           )) { $params .= "&page=".$_POST['page']; };
+    if( isset($_POST['sort_by']        )) { $params .= "&sort_by=".$_POST['sort_by']; };
+    if( isset($_POST['sort_direction'] )) { $params .= "&sort_direction=".$_POST['sort_direction']; };
+
+    // echo "<pre>\n".var_dump($_POST)."\n</pre>";
+
+    foreach( $_POST as $key => $content ) {
+        // echo "\nKEY: $key CONTENT: $content"; 
+        // echo "\nSTRPOS: ".strpos($key, "task_edited_");
+        if( strpos($key, "task_edited_") !== FALSE ) {
+            $id = str_replace( "task_edited_", "", $key );
+            $task = R::findOne('tasks', ' id = ? ', array($id));
+            $task->content = $content;
+            // echo "Saving to id:$id => $content";
+            R::store($task);
+        }   
     }
+
+        header( "Location: /$params" );
+
 ?>
 

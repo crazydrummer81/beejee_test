@@ -76,7 +76,12 @@
 <div class='task-list-wrapper'>
 <?php
         if( $logged_user == "admin") {
-            printf('<form name="form_tasks_edit" id="form_tasks_edit" onsubmit="" action="save_tasks.php" method="POST">'); 
+            printf('<form 
+                        name="form_tasks_edit" 
+                        id="form_tasks_edit" 
+                        onsubmit="" 
+                        action="save_tasks.php" 
+                        method="POST">'); 
         }
 
         $tasks_per_pages = 3;
@@ -95,7 +100,7 @@
         }
         
         if( isset($_GET['page']) && ($_GET['page'] != 0 ) ) {
-            $current_page = $_GET['page']; echo "SUKA ".$current_page > count($tasks_pages);
+            $current_page = $_GET['page']; 
             if ( $current_page > count($tasks_pages) ) {
                 $current_page = count($tasks_pages);
             }
@@ -146,10 +151,12 @@
             
             }
         }
-        // if( $logged_user == "admin") {
-        //     printf('<button id="button_save_form" style="display:none" type="submit">Сохранить</button>'); 
+        if( $logged_user == "admin") {
+                echo "<input type='hidden' name='page' value='$current_page'>";
+                echo "<input type='hidden' name='sort_by' value='$current_sort_by'>";
+                echo "<input type='hidden' name='sort_direction' value='$sort_direction'>";
             printf('</form>'); 
-        //}
+        }
 ?>
 </div> <!-- task-list-wrapper -->
 <?php

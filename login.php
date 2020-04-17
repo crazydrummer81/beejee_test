@@ -22,9 +22,7 @@
             $errors[] = "Пользователь с таким логином не найден!";
         }
 
-        if( !empty($errors) ){
-            echo "<div id='login_error'>".array_shift($errors)."</div>";
-        }
+
             
     } 
     if( !isset($_SESSION['logged_user'])) : ?>
@@ -41,6 +39,9 @@
         <div id="main-wrapper-login">
 
             <h1 id="login_heading">Вход в личный кабинет</h1>
+            <?php if( !empty($errors) ) {
+                echo "<div id='login_error'>".array_shift($errors)."</div>";
+            } ?>
             <div id="login-form">
                 <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
                     <div class="login-form-field"><strong>Логин</strong>:

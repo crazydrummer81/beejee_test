@@ -146,7 +146,7 @@ input {
     "checkbox content button"  
     "checkbox author button";
     grid-template-columns: auto 1fr 6em;
-    /* grid-template-rows: 1fr; */
+    grid-template-rows: 1fr 1em;
     padding: 8px;
 }
 .task {
@@ -295,5 +295,10 @@ h3 {
 } */
 #signup_offer {
     padding: 0em 0.5em;
+    text-align: center;
+}
+#login_error {
+    width: 100%;
+    color: red;
     text-align: center;
 }
