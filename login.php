@@ -34,11 +34,14 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Document</title>
             <link rel="stylesheet" href="css/style.css">
+            <link rel="stylesheet" href="css/media.css">
+            <link rel="stylesheet" href="css/fonts.css">
         </head>
         <body>
         <div id="main-wrapper-login">
-
-            <h1 id="login_heading">Вход в личный кабинет</h1>
+            <header>
+                <h1 class="login_heading">Вход в личный кабинет</h1>
+            </header>
             <?php if( !empty($errors) ) {
                 echo "<div id='login_error'>".array_shift($errors)."</div>";
             } ?>

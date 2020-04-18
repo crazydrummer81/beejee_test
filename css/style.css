@@ -8,15 +8,16 @@ html {
 }
 #main-wrapper-signup, #main-wrapper-login, #main-wrapper-home {
     width: 350px;
-    padding: 15px 0px;
+    padding: 0px 0px 15px 0px;
     background-color: white;
     border: 0px;
-    border-top: 50px solid #27ae60;
+    border-top: 10px solid #27ae60;
     border-radius: 10px;
     box-shadow: 5px 5px 10px #999999;
 }
 #main-wrapper-home {
-    width: 600px;
+    max-width: 600px;
+    width: 100%;
 }
 body {
     height: 100vh;
@@ -32,24 +33,52 @@ a:visited {
     color: blue;
 }
 h1 {
-    margin: 0px;
+    margin: 0px 0px 25px 0px;
     text-align: center;
     font-size: 1.4rem;
-    color: white;
-
+    color: black;
+    /* padding-top: 20px; */
 }
-
-#login_heading, #signup_heading {
-    position:relative;
-    top:-25px;
-    margin-top:-30px;
+.home_heading {
+    padding-top: 0;
+    padding-bottom: 1em;
+}
+.login_heading, .signup_heading {
+    color: white;
 }
 
 h2 {
     margin: 0.5em;
 }
+header {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /* top: -55px; */
+    color: white;
+    margin: 0px 0px 25px 0px;
+    height: 55px;
+    z-index: 500;
+    align-items: center;
+    background-color: #27ae60;
+    /* padding: 10px; */
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+.authorisation {
+    justify-content: space-between;
+}
+#logout, 
+#logout > a:visited, 
+header > a, 
+header > a:visited {
+    color: white;
+    font-weight: 700;
+}
 
 button {
+    height: 3em;
     border: 0px; 
     border-radius: 5px;
     background-color: #27ae60;
@@ -64,27 +93,9 @@ button:hover {
 input {
     border: 1px solid #999999;
     border-radius: 5px;
+    /* height: 2em; */
 }
 
-#authorisation {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: space-between;
-    position: relative;
-    top: -55px;
-    color: white;
-    margin: 0em 0.7em -25px 0.7em;
-    z-index: 500;
-    align-items: center;
-}
-
-#logout, 
-#logout > a:visited, 
-#authorisation > a, 
-#authorisation > a:visited {
-    color: white;
-    font-weight: 700;
-}
 
 #sort {
     display: grid;
@@ -177,6 +188,9 @@ input {
     box-sizing: border-box;
     padding: 5px;
 }
+.task-content {
+    line-height: 1.5em;
+}
 .button-task-edit {
     /* display: inline; */
     /* height: 3em; */
@@ -236,20 +250,21 @@ a.button-task-delete:hover {
     text-align: center;
 }
 h3 {
-    margin: 0.5em 0.5em 0em 0.5em;
+    margin: 0.5em 1em 0em 1em;
 }
 .section-task-create {
     display: grid;
     grid-template-areas: "content button";
     grid-template-columns: 7fr 2fr;
     padding: 8px 20px;
-    height: 2em;
+    height: 2.5em;
     grid-gap: 0.5em;
 }
 
 #field_new_task {
     grid-area: content;
     padding: 5px;
+    /* height: 2.5em; */
 }
 #send_task {
     grid-area: button;
@@ -264,7 +279,7 @@ h3 {
     padding: 0.5em;
 }
 #login-form > form > div > button {
-    height: 2.5em;
+    height: 3em;
     min-width: 6em;
     padding: 0em 1em;
 }
@@ -277,7 +292,7 @@ h3 {
     display: block;
     padding: 5px;
     width: 100%;
-    height: 2.5em;
+    height: 3em;
     margin: 0.5em auto;
     box-sizing: border-box;
     border: 1px solid #999999;
@@ -288,11 +303,6 @@ h3 {
     text-align: end;
     padding-top: 0.5em;
 }
-/* .login-form-button > button {
-    border: 1px solid #bbbbbb;
-    border-radius: 5px;
-    box-shadow: 1px 1px 2px #999999;
-} */
 #signup_offer {
     padding: 0em 0.5em;
     text-align: center;

@@ -45,7 +45,7 @@
                 'login'   => ['key' => 'login',   'description' => 'автор'],
                 'email'   => ['key' => 'email',   'description' => 'e-mail'],
                 'content' => ['key' => 'content', 'description' => 'задача'],
-                'default' => ['key' => 'default', 'description' => 'без сортировки']
+                'default' => ['key' => 'default', 'description' => 'без&nbsp;сортировки']
             );
             foreach( $sort_types as $type ) {
                 if( $current_sort_by == $type['key'] ) {
@@ -126,9 +126,9 @@
                 echo "</div>";
                 
                     echo "<div class='task'>";
-                    printf( "<div id='task_content_%s' >%s</div>", $task->id, $task->content);
+                    printf( "<div class='task-content' id='task_content_%s' >%s</div>", $task->id, $task->content);
                     printf( '<input type="text" style="display:none;" disabled="true" id="task_content_edited_%s" name="task_edited_%s" value="%s"></input>', $task->id, $task->id, $task->content);
-                    printf( "<a style='display:none;' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'><i class='icon-cancel-circle'></i></a>",$task->id, $task->id );
+                    printf( "<a style='display:none; font-size:1.5em' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'><i class='icon-cancel-circle'></i></a>",$task->id, $task->id );
                     echo "</div>";
                     echo "<div class='button-task-edit'>";
                     if( $logged_user == "admin") {
@@ -232,7 +232,7 @@ function compare_default_dec($a, $b) {
 
         elem_id = 'button_task_edit_cancel_' + task_id; console.log('id: '+elem_id);
         elem = document.getElementById(elem_id);
-        elem.style="display:inline;";
+        elem.style="display:inline;font-size:2em;";
 
         elem_id = 'button_save_form';
         elem = document.getElementById(elem_id);

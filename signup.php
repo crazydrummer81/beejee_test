@@ -31,10 +31,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/media.css">
+        <link rel="stylesheet" href="css/fonts.css">
     </head>
     <body>
     <div id="main-wrapper-signup">
-        <h1 id="signup_heading">Создайте аккаунт</h1>
+        <header>
+            <h1 class="signup_heading">Создайте аккаунт</h1>
+        </header>
             <div id="login-form">
                 <form name=contact_form onsubmit="return signup_form_validate(this);" action="signup.php" method="POST">
                     <div class="login-form-field" placeholder="Ваш логин"><strong>Ваш логин</strong>:
