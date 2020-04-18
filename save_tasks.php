@@ -20,9 +20,12 @@
         if( strpos($key, "task_edited_") !== FALSE ) {
             $id = str_replace( "task_edited_", "", $key );
             $task = R::findOne('tasks', ' id = ? ', array($id));
-            $task->content = $content;
-            // echo "Saving to id:$id => $content";
-            R::store($task);
+            if( trim($content) == "" ) { R::trash( $task ); }
+            else {
+                $task->content = trim(htmlspecialchars($content));
+                // echo "Saving to id:$id => $content";
+                R::store($task);
+            }
         }   
     }
 

@@ -127,7 +127,7 @@
                 
                     echo "<div class='task'>";
                     printf( "<div class='task-content' id='task_content_%s' >%s</div>", $task->id, $task->content);
-                    printf( '<input type="text" style="display:none;" disabled="true" id="task_content_edited_%s" name="task_edited_%s" value="%s"></input>', $task->id, $task->id, $task->content);
+                    printf( '<input type="text" style="display:none;" disabled="true" id="task_content_edited_%s" name="task_edited_%s" value="%s" placeholder="Удалить задачу...">', $task->id, $task->id, $task->content);
                     printf( "<a style='display:none; font-size:1.5em' id='button_task_edit_cancel_%s' onclick='cancelEditTask(%s)'><i class='icon-cancel-circle'></i></a>",$task->id, $task->id );
                     echo "</div>";
                     echo "<div class='button-task-edit'>";
@@ -142,10 +142,10 @@
                     echo "</div>";
 
                     echo('<div class="task-author">');
-                    printf( "<div class='author-name'>Автор: <strong>%s</strong></div>", $task->author);
+                    printf( "<div class='author-name'>Автор:&nbsp;<strong>%s</strong></div>", $task->author);
                     
                     if( $task->author != 'Anonymous' )
-                    printf( " <div class='author-email'> | e-mail: <strong>%s</strong></div>",  $task->email );
+                    printf( " <div class='author-email'> | e-mail:&nbsp;<strong>%s</strong></div>",  $task->email );
                     echo '</div>';
                 echo '</div>';
             

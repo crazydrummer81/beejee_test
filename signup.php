@@ -4,14 +4,14 @@
     if( isset($data['do_signup']) ) {
         // Регистрируем пользовалеля
         $user = R::dispense('users');
-        $user->login = $data['login'];
-        $user->email = $data['email'];
+        $user->login = trim(htmlspecialchars($data['login']));
+        $user->email = trim(htmlspecialchars($data['email']));
         $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
         if( R::count('users', "login = ?", array($data['login'])) )  { 
-            echo "Пользователь с таким логином уже существует";
+            $errors[] = "Пользователь с таким логином уже существует";
         } 
         elseif( R::count('users', "email = ?", array($data['email'])) )  { 
-                echo "Пользователь с таким e-mail уже существует";
+            $errors[] = "Пользователь с таким e-mail уже существует";
             } 
         else {
             R::store($user);
@@ -39,16 +39,19 @@
         <header>
             <h1 class="signup_heading">Создайте аккаунт</h1>
         </header>
+        <?php if( !empty($errors) ) {
+                echo "<div id='login_error'>".array_shift($errors)."</div>"; }
+        ?>
             <div id="login-form">
                 <form name=contact_form onsubmit="return signup_form_validate(this);" action="signup.php" method="POST">
                     <div class="login-form-field" placeholder="Ваш логин"><strong>Ваш логин</strong>:
-                    <input type="text" name="login"></div>
+                    <input type="text" name="login" required></div>
                     <div class="login-form-field"><strong>e-mail</strong>:
-                    <input type="email" name="email"></div>
-                    <div class="login-form-field"><strong>Пароль</strong>:
-                    <input type="password" name="password"></div>
+                    <input type="email" name="email" required></div>
+                    <div class="login-form-field" ><strong>Пароль</strong>:
+                    <input type="password" name="password" required></div>
                     <div class="login-form-field"><strong>Повторите пароль</strong>:
-                    <input type="password" name="password_2"></div>
+                    <input type="password" name="password_2" required></div>
                     <div class="login-form-button"><button class="button" type="submit" name="do_signup">Зарегистрироваться</button></div>
                 </form>
             </div>

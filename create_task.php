@@ -12,13 +12,15 @@
 
     if( isset($_POST['send_task']) ) {
         // echo $_POST['send_task'];
-        $_POST['content'] = htmlspecialchars($_POST['content']);
-        $task = R::dispense('tasks');
-        $task->content = $_POST['content'];
-        $task->author = $author;
-        $task->checked = false;
-        $task->email = get_author_email($author);
-        R::store($task);
+        $_POST['content'] = trim(htmlspecialchars($_POST['content']));
+        if( $_POST['content'] != "" ) {
+            $task = R::dispense('tasks');
+            $task->content = $_POST['content'];
+            $task->author = $author;
+            $task->checked = false;
+            $task->email = get_author_email($author);
+            R::store($task);
+        }
     }
     header("Location: /$params"); // ДОБАВИТЬ ССЫЛКИ НА СТРАНИЦУ И МЕТОД СОРТИРОВКИ
     function get_author_email($author_name) {

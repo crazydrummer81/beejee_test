@@ -46,11 +46,11 @@
                 echo "<div id='login_error'>".array_shift($errors)."</div>";
             } ?>
             <div id="login-form">
-                <form name=contact_form onsubmit="return login_form_validate(this);" action="login.php" method="POST">
+                <form name=contact_form action="login.php" method="POST">
                     <div class="login-form-field"><strong>Логин</strong>:
-                    <input type="text" name="login"></div>
+                    <input type="text" name="login" required></div>
                     <div class="login-form-field"><strong>Пароль</strong>:
-                    <input type="password" name="password"></div>
+                    <input type="password" name="password" required></div>
                     <div class="login-form-button"><button class="button" type="submit" name="do_login">Войти</button></div>
                 </form>
             </div>

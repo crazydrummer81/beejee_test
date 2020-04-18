@@ -1,7 +1,11 @@
 function signup_form_validate(form) {
     
     valid = true;
-    text = "";
+
+    form.login.value    = form.login.value.trim(); 
+    form.email.value    = form.email.value.trim();
+    form.password.value = form.password.value.trim();
+    form.password_2     = form.password_2.value.trim();
     valid = (form.login.value      != "") &&
             (form.email.value      != "") &&
             (form.password.value   != "") &&
