@@ -145,7 +145,7 @@
                     printf( "<div class='author-name'>Автор:&nbsp;<strong>%s</strong></div>", $task->author);
                     
                     if( $task->author != 'Anonymous' )
-                    printf( " <div class='author-email'> | e-mail:&nbsp;<strong>%s</strong></div>",  $task->email );
+                    printf( " <div class='author-email'> | e&#8209;mail:&nbsp;<strong>%s</strong></div>",  $task->email );
                     echo '</div>';
                 echo '</div>';
             

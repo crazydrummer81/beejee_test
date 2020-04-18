@@ -157,7 +157,7 @@ input {
     "checkbox content button"  
     "checkbox author button";
     grid-template-columns: auto 1fr 6em;
-    grid-template-rows: 1fr 1em;
+    /* grid-template-rows: 1fr 1em; */
     padding: 8px;
 }
 .task {
